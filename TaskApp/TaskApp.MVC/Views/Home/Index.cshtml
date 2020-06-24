@@ -1,8 +1,38 @@
-﻿@{
+﻿@model List<TaskApp.Infrastructure.DTO.TaskGroupDTO>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
+            </th>
+            <th scope="col">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Number of tasks</a>
+            </th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model)
+        {
+            <tr>
+                <td scope="row">
+                    @Html.DisplayFor(modelItem => group.Name)
+                </td>
+                <td scope="row">
+                    @Html.DisplayFor(modelItem => group.NumberOfTasks)
+                </td>
+                <td scope="row">
+                    <a asp-action="Edit" asp-route-id="@group.Id">Edit</a> |
+                    <a asp-action="Remove" asp-route-id="@group.Id">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-secondary">Create</button>

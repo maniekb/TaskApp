@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using TaskApp.Domain.Entities;
 using TaskApp.Domain.Repositories;
 using TaskApp.Infrastructure.EF;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace TaskApp.Infrastructure.Repositories
 {
@@ -17,9 +20,12 @@ namespace TaskApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task<IEnumerable<TaskGroup>> BrowseAsync()
+        public async Task<List<TaskGroup>> BrowseAsync()
         {
-            throw new NotImplementedException();
+            var data = await _context.TaskGroups.Include(t => t.UserTasks).ToListAsync();
+
+            return data;
         }
+            
     }
 }

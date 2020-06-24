@@ -8,6 +8,6 @@ namespace TaskApp.Domain.Repositories
 {
     public interface ITaskGroupRepository
     {
-        Task<IEnumerable<TaskGroup>> BrowseAsync();
+        Task<List<TaskGroup>> BrowseAsync();
     }
 }

@@ -9,7 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TaskApp.Domain.Repositories;
 using TaskApp.Infrastructure.EF;
+using TaskApp.Infrastructure.Repositories;
+using TaskApp.Infrastructure.Services;
 
 namespace TaskApp
 {
@@ -26,6 +29,8 @@ namespace TaskApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<ITaskGroupService, TaskGroupService>();
+            services.AddScoped<ITaskGroupRepository, TaskGroupRepository>();
             services.AddDbContext<TaskAppContext>(options => options.UseSqlServer(@"Server=DESKTOP-M13QDOP;Database=TaskAppDB;Trusted_Connection=True;"));
         }
 
