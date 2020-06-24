@@ -9,5 +9,6 @@ namespace TaskApp.Infrastructure.Services
     public interface ITaskGroupService
     {
         Task<List<TaskGroupDTO>> BrowseAsync();
+        Task DeleteAsync(int id);
     }
 }

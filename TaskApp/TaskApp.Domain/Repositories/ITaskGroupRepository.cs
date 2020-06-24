@@ -9,5 +9,7 @@ namespace TaskApp.Domain.Repositories
     public interface ITaskGroupRepository
     {
         Task<List<TaskGroup>> BrowseAsync();
+        Task<TaskGroup> GetAsync(int groupId);
+        Task DeleteAsync(TaskGroup group);
     }
 }

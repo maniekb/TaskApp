@@ -28,7 +28,7 @@
                 </td>
                 <td scope="row">
                     <a asp-action="Edit" asp-route-id="@group.Id">Edit</a> |
-                    <a asp-action="Remove" asp-route-id="@group.Id">Remove</a>
+                    @Html.ActionLink("Delete", "Delete", new { groupId = @group.Id })
                 </td>
             </tr>
         }

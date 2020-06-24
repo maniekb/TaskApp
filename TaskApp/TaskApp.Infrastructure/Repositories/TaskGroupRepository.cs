@@ -21,11 +21,15 @@ namespace TaskApp.Infrastructure.Repositories
         }
 
         public async Task<List<TaskGroup>> BrowseAsync()
-        {
-            var data = await _context.TaskGroups.Include(t => t.UserTasks).ToListAsync();
+            => await _context.TaskGroups.Include(t => t.UserTasks).ToListAsync();
 
-            return data;
+        public async Task<TaskGroup> GetAsync(int groupId)
+            => await _context.TaskGroups.SingleOrDefaultAsync(g => g.TaskGroupId == groupId);
+
+        public async Task DeleteAsync(TaskGroup group)
+        {
+            _context.TaskGroups.Remove(group);
+            await _context.SaveChangesAsync();
         }
-            
     }
 }

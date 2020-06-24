@@ -44,7 +44,12 @@ namespace TaskApp.Controllers
                     break;
             }
             return View(data);
+        }
 
+        public async Task<IActionResult> Delete(int groupId)
+        {
+            await _taskGroupService.DeleteAsync(groupId);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

@@ -29,5 +29,11 @@ namespace TaskApp.Infrastructure.Services
 
             return query;
         }
+
+        public async Task DeleteAsync(int groupId)
+        {
+            var group = await _taskGroupRepository.GetAsync(groupId);
+            await _taskGroupRepository.DeleteAsync(group);
+        }
     }
 }
