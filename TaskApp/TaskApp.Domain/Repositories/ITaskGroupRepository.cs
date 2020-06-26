@@ -11,5 +11,7 @@ namespace TaskApp.Domain.Repositories
         Task<List<TaskGroup>> BrowseAsync();
         Task<TaskGroup> GetAsync(int groupId);
         Task DeleteAsync(TaskGroup group);
+        Task UpdateAsync(TaskGroup group);
+        Task<int> AddAsync(TaskGroup group);
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using TaskApp.Infrastructure.Services;
 using TaskApp.Models;
+using TaskApp.MVC.Models;
 
 namespace TaskApp.Controllers
 {
@@ -24,26 +24,33 @@ namespace TaskApp.Controllers
         public async Task<IActionResult> Index(string sortOrder)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "NumOfTasks" ? "num_desc" : "NumOfTasks";
+            ViewData["NoOfTasksSortParm"] = sortOrder == "num_asc" ? "num_desc" : "num_asc";
 
-            var data = await _taskGroupService.BrowseAsync();
+            var groups = await _taskGroupService.BrowseAsync();
+
+            var models = groups.Select(m => new IndexModel
+            {
+                GroupId = m.TaskGroupId,
+                Name = m.Name,
+                UserTasksCount = m.UserTasks.Count()
+            });
 
             switch (sortOrder)
             {
                 case "name_desc":
-                    data = data.OrderByDescending(x => x.Name).ToList();
+                    models = models.OrderByDescending(x => x.Name).ToList();
                     break;
-                case "NumOfTasks":
-                    data = data.OrderBy(x => x.NumberOfTasks).ToList();
+                case "num_asc":
+                    models = models.OrderBy(x => x.UserTasksCount).ToList();
                     break;
-                case "date_desc":
-                    data = data.OrderByDescending(x => x.NumberOfTasks).ToList();
+                case "num_desc":
+                    models = models.OrderByDescending(x => x.UserTasksCount).ToList();
                     break;
                 default:
-                    data = data.OrderBy(x => x.Name).ToList();
+                    models = models.OrderBy(x => x.Name).ToList();
                     break;
             }
-            return View(data);
+            return View(models);
         }
 
         public async Task<IActionResult> Delete(int groupId)

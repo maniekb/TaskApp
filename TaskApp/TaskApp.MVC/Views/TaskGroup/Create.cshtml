@@ -1,0 +1,24 @@
+﻿@model TaskApp.MVC.Models.TaskGroupModel
+
+@{
+    ViewData["Title"] = "TaskGroupCreate";
+}
+
+<button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("Index", "Home")'">Back to list</button>
+
+<h1 style="text-align:center">Create new task group!</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form asp-controller="TaskGroup" asp-action="CreateGroup" method="post">
+                <div class="input-group mb-3">
+                    <input asp-for="Name" type="text" class="form-control">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

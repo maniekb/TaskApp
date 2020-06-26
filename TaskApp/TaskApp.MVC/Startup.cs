@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TaskApp.Domain.Repositories;
 using TaskApp.Infrastructure.EF;
+using TaskApp.Infrastructure.Mapper;
 using TaskApp.Infrastructure.Repositories;
 using TaskApp.Infrastructure.Services;
 
@@ -29,9 +31,23 @@ namespace TaskApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddScoped<ITaskGroupService, TaskGroupService>();
             services.AddScoped<ITaskGroupRepository, TaskGroupRepository>();
+            services.AddScoped<IUserTaskService, UserTaskService>();
+            services.AddScoped<IUserTaskRepository, UserTaskRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddDbContext<TaskAppContext>(options => options.UseSqlServer(@"Server=DESKTOP-M13QDOP;Database=TaskAppDB;Trusted_Connection=True;"));
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

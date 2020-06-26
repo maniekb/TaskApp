@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TaskApp.Domain.Entities;
 
 namespace TaskApp.Infrastructure.EF

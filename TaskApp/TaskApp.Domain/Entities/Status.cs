@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaskApp.Domain.Entities
+﻿namespace TaskApp.Domain.Entities
 {
     public enum Status
     {

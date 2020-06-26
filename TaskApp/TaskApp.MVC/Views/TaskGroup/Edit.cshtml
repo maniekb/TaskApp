@@ -1,0 +1,98 @@
+﻿@model TaskApp.MVC.Models.EditModel
+
+@{
+    ViewData["Title"] = "TaskGroupCreate";
+}
+
+<button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("Index", "Home")'">Back to list</button>
+
+<h1 style="text-align:center">Editing @Model.TaskGroup.Name group!</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form asp-controller="TaskGroup" asp-action="ChangeName" method="post">
+                <div class="input-group mb-3">
+                    <input asp-for="TaskGroup.Name" type="text" class="form-control" value="@Model.TaskGroup.Name">
+                    @Html.Hidden("TaskGroup.Id", Model.TaskGroup.Id)
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Save</button>
+                    </div>
+                </div>    
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Task</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in @Model.TaskGroup.UserTasks)
+                    {
+                        <tr>
+                            <td scope="row">
+                                @Html.DisplayFor(model => task.Name)
+                            </td>
+                            <td scope="row">
+                                @Html.DisplayFor(model => task.Deadline)
+                            </td>
+                            <td scope="row">
+                                @Html.DisplayFor(model => model.Users.SingleOrDefault(u => u.UserId == task.UserId).FullName)
+                            </td>
+                            <td scope="row">
+                                @Html.DisplayFor(model => task.Status)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("DeleteTask", "TaskGroup", new { taskId = task.UserTaskId, groupId = task.TaskGroupId})">
+                                    <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <h2>Add new task</h2>
+            <form asp-controller="TaskGroup" asp-action="AddTask" method="post">
+                <div class="form-group">
+                    <input asp-for="UserTask.Name" type="text" class="form-control" id="nameinput" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <select asp-for="UserTask.UserId" class="form-control" asp-for="Users" asp-items="@(new SelectList(Model.Users,"UserId","FullName", null))">
+                        <option>User</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(t => t.UserTask.Deadline)
+                </div>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-danger">
+                        <input asp-for="UserTask.Status" type="radio" value="0" checked>New
+                    </label>
+                    <label class="btn btn-warning">
+                        <input asp-for="UserTask.Status" type="radio" value="1">In Progress
+                    </label>
+                    <label class="btn btn-success">
+                        <input asp-for="UserTask.Status" type="radio" value="2">Completed
+                    </label>
+                </div>
+                @Html.Hidden("UserTask.TaskGroupId", Model.TaskGroup.Id)
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Add</button>
+                </div>     
+            </form>
+        </div>
+    </div>
+</div>
+

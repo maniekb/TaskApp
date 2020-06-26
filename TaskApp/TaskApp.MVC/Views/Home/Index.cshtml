@@ -1,8 +1,10 @@
-﻿@model List<TaskApp.Infrastructure.DTO.TaskGroupDTO>
+﻿@model List<TaskApp.MVC.Models.IndexModel>
 
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<h1 style="text-align:center">All groups</h1>
 
 <table class="table table-bordered table-hover">
     <thead class="thead-light">
@@ -11,7 +13,7 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
             </th>
             <th scope="col">
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Number of tasks</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NoOfTasksSortParm"]">Number of tasks</a>
             </th>
             <th scope="col">Actions</th>
         </tr>
@@ -24,15 +26,14 @@
                     @Html.DisplayFor(modelItem => group.Name)
                 </td>
                 <td scope="row">
-                    @Html.DisplayFor(modelItem => group.NumberOfTasks)
+                    @Html.DisplayFor(modelItem => group.UserTasksCount)
                 </td>
                 <td scope="row">
-                    <a asp-action="Edit" asp-route-id="@group.Id">Edit</a> |
-                    @Html.ActionLink("Delete", "Delete", new { groupId = @group.Id })
+                    @Html.ActionLink("Edit", "Edit", "TaskGroup", new { groupId = @group.GroupId }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Delete", "Delete", "Home", new { groupId = @group.GroupId }, new { @class = "btn btn-danger btn-sm" })
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<button type="button" class="btn btn-secondary">Create</button>
+<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "TaskGroup")'">Create</button>

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TaskApp.Infrastructure.DTO
 {
     public class TaskGroupDTO
     {
-        public int Id { get; set; }
+        public int TaskGroupId { get; set; }
         public string Name { get; set; }
-        public int NumberOfTasks { get; set; }
+        public IList<UserTaskDTO> UserTasks { get; set; }
     }
 }
