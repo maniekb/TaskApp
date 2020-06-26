@@ -69,7 +69,7 @@
                     <input asp-for="UserTask.Name" type="text" class="form-control" id="nameinput" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <select asp-for="UserTask.UserId" class="form-control" asp-for="Users" asp-items="@(new SelectList(Model.Users,"UserId","FullName", null))">
+                    <select asp-for="UserTask.UserId" class="form-control" asp-items="@(new SelectList(Model.Users,"UserId","FullName", null))">
                         <option>User</option>
                     </select>
                 </div>
