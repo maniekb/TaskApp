@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TaskApp.Domain.Repositories;
+using System;
 using TaskApp.Infrastructure.EF;
 using TaskApp.Infrastructure.IoC;
 using TaskApp.Infrastructure.Mapper;
-using TaskApp.Infrastructure.Repositories;
-using TaskApp.Infrastructure.Services;
 
 namespace TaskApp
 {
