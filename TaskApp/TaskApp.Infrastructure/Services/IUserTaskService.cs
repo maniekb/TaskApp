@@ -6,7 +6,7 @@ using TaskApp.Infrastructure.DTO;
 
 namespace TaskApp.Infrastructure.Services
 {
-    public interface IUserTaskService
+    public interface IUserTaskService : IService
     {
         Task<List<UserTaskDTO>> GetAsync(int groupId);
         Task CreateAsync(int taskGroupId, string name, DateTime deadline, int? userId, Status status);

@@ -4,7 +4,7 @@ using TaskApp.Infrastructure.DTO;
 
 namespace TaskApp.Infrastructure.Services
 {
-    public interface IUserService
+    public interface IUserService : IService
     {
         Task<List<UserDTO>> BrowseAsync();
         Task<UserDTO> GetAsync(int userId);

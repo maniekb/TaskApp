@@ -6,7 +6,7 @@ using TaskApp.Domain.Entities;
 
 namespace TaskApp.Domain.Repositories
 {
-    public interface IUserTaskRepository
+    public interface IUserTaskRepository : IRepository
     {
         Task<List<UserTask>> BrowseAsync(int groupId);
         Task<UserTask> GetAsync(int groupId);

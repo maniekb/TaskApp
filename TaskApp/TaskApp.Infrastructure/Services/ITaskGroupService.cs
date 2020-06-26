@@ -4,7 +4,7 @@ using TaskApp.Infrastructure.DTO;
 
 namespace TaskApp.Infrastructure.Services
 {
-    public interface ITaskGroupService
+    public interface ITaskGroupService : IService
     {
         Task<List<TaskGroupDTO>> BrowseAsync();
         Task<TaskGroupDTO> GetAsync(int groupId);
