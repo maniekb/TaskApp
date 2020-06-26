@@ -30,6 +30,11 @@ namespace TaskApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson();
             services.AddScoped<ITaskGroupService, TaskGroupService>();
@@ -38,7 +43,7 @@ namespace TaskApp
             services.AddScoped<IUserTaskRepository, UserTaskRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddDbContext<TaskAppContext>(options => options.UseSqlServer(@"Server=DESKTOP-M13QDOP;Database=TaskAppDB;Trusted_Connection=True;"));
+            services.AddDbContext<TaskAppContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             var mappingConfig = new MapperConfiguration(mc =>
             {
