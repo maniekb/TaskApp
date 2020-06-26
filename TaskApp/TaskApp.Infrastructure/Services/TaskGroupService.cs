@@ -27,7 +27,7 @@ namespace TaskApp.Infrastructure.Services
 
         public async Task<int> CreateAsync(string name)
         {
-            var group = new TaskGroup { Name = name };
+            var group = new TaskGroup(name);
             var id = await _taskGroupRepository.AddAsync(group);
 
             return id;
