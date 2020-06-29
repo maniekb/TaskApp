@@ -11,7 +11,7 @@ namespace TaskApp.MVC.Models
         [Required]
         public string Name { get; set; }
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime Deadline { get; set; } = DateTime.Now;
         public int? UserId { get; set; }
         [Required]
